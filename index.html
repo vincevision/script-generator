@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PRO STOCKS — Premium Simulated Investment Platform (Demo)</title>
+<meta name="description" content="PRO STOCKS is a demonstration platform. All investor profiles, portfolio balances, returns and performance figures are simulated." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Sora', 'Inter', 'sans-serif'],
+      },
+      colors: {
+        ink: { 950:'#050914', 900:'#070D1F', 850:'#0A1128', 800:'#0D1530', 700:'#131C3D', 600:'#1B2547' },
+        mint: { 300:'#6EE7B7', 400:'#34D399', 500:'#00E07F', 600:'#00B868' },
+        danger: { 400:'#FF6B85', 500:'#FF4D67' },
+        gold: { 400:'#E3C878', 500:'#C9A96A' },
+      },
+      boxShadow: {
+        card: '0 8px 32px -8px rgba(0,0,0,0.55)',
+        glow: '0 0 24px -6px rgba(0,224,127,0.45)',
+      }
+    }
+  }
+}
+</script>
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300E07F'/%3E%3Cpath d='M9 22v-6M15 22V10M21 22v-9' stroke='%23050914' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+</head>
+<body class="bg-ink-950 text-slate-100 font-sans antialiased">
+
+<!-- Ambient background -->
+<div class="bg-aurora" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<!-- ══════════ TOP NAVIGATION ══════════ -->
+<header class="topbar">
+  <div class="flex items-center gap-3 min-w-0">
+    <button id="btn-menu" class="icon-btn lg:hidden" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <a href="#/dashboard" class="brand">
+      <span class="brand-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="19" x2="6" y2="13"/><line x1="12" y1="19" x2="12" y2="5"/><line x1="18" y1="19" x2="18" y2="10"/></svg>
+      </span>
+      <span class="brand-text">PRO <em>STOCKS</em></span>
+    </a>
+    <span class="demo-pill" title="All data on this platform is simulated">
+      <span class="demo-dot"></span>DEMO
+    </span>
+  </div>
+
+  <!-- Global search -->
+  <div class="search-wrap hidden md:block">
+    <svg class="search-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <input id="global-search" type="text" placeholder="Search investors, stocks…  ( / )" autocomplete="off" />
+    <kbd>/</kbd>
+    <div id="search-results" class="search-results hidden"></div>
+  </div>
+
+  <div class="flex items-center gap-2 sm:gap-3">
+    <div id="market-status" class="market-status" title="US market session indicator (illustrative)">
+      <span class="live-dot"></span>
+      <span id="market-status-text" class="hidden sm:inline">Market Open</span>
+      <span id="clock" class="clock hidden xl:inline">--:--</span>
+    </div>
+    <button id="btn-search-m" class="icon-btn md:hidden" aria-label="Search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    </button>
+    <div class="relative">
+      <button id="btn-notif" class="icon-btn" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <span id="notif-badge" class="notif-badge">4</span>
+      </button>
+      <div id="notif-panel" class="dropdown hidden"></div>
+    </div>
+    <div class="relative">
+      <button id="btn-user" class="user-chip" aria-label="Account menu">
+        <span class="avatar avatar-sm" style="background:linear-gradient(135deg,#4F7CFF,#00E07F)">D</span>
+        <span class="hidden sm:block text-left leading-tight">
+          <span class="block text-xs font-semibold">Demo Account</span>
+          <span class="block text-[10px] text-mint-400 font-semibold tracking-wide">SIMULATED • KES</span>
+        </span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" class="opacity-60"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div id="user-panel" class="dropdown hidden"></div>
+    </div>
+  </div>
+</header>
+<!-- Mobile search row -->
+<div id="mobile-search-row" class="mobile-search hidden">
+  <input id="mobile-search" type="text" placeholder="Search investors, stocks…" autocomplete="off" />
+  <div id="mobile-search-results" class="search-results hidden"></div>
+</div>
+
+<div class="shell">
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside id="sidebar" class="sidebar">
+    <div class="demo-banner-side">
+      <span class="demo-dot"></span>
+      <div>
+        <p class="text-[11px] font-bold tracking-widest text-amber-300">DEMO — SIMULATED DATA</p>
+        <p class="text-[11px] text-slate-400 leading-snug mt-0.5">No real money. No real accounts.</p>
+      </div>
+    </div>
+    <nav class="side-nav" id="side-nav">
+      <p class="nav-label">Platform</p>
+      <a href="#/dashboard" data-route="dashboard" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Dashboard</a>
+      <a href="#/markets" data-route="markets" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Markets</a>
+      <a href="#/investors" data-route="investors" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Investors <span id="nav-investor-count" class="nav-count">100+</span></a>
+      <a href="#/portfolios" data-route="portfolios" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        Portfolios</a>
+      <a href="#/watchlist" data-route="watchlist" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Watchlist <span id="nav-watch-count" class="nav-count hidden">0</span></a>
+      <a href="#/charts" data-route="charts" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+        Charts</a>
+      <p class="nav-label mt-5">Company</p>
+      <a href="#/about" data-route="about" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        About</a>
+      <a href="#/help" data-route="help" class="nav-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Help</a>
+    </nav>
+    <div class="side-card">
+      <p class="text-xs font-bold text-white">Simulated Performance</p>
+      <p class="text-[11px] text-slate-400 mt-1 leading-snug">Platform aggregate, last 90 days (simulated).</p>
+      <canvas id="side-spark" height="44"></canvas>
+      <p id="side-spark-label" class="text-[11px] font-bold text-mint-400 mt-1">—</p>
+    </div>
+  </aside>
+  <div id="sidebar-scrim" class="scrim hidden"></div>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main class="main">
+    <!-- Persistent demo strip -->
+    <div class="demo-strip">
+      <span class="demo-strip-badge">DEMO</span>
+      <span class="demo-strip-text">SIMULATED INVESTMENT DATA — All profiles, balances &amp; returns are fictional and for demonstration only.</span>
+    </div>
+    <!-- Simulated ticker -->
+    <div class="ticker" aria-hidden="true"><div id="ticker-track" class="ticker-track"></div></div>
+
+    <div id="page" class="page"></div>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <div class="brand mb-3">
+            <span class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="19" x2="6" y2="13"/><line x1="12" y1="19" x2="12" y2="5"/><line x1="18" y1="19" x2="18" y2="10"/></svg></span>
+            <span class="brand-text text-base">PRO <em>STOCKS</em></span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed max-w-sm">A premium fintech interface demonstration. Crafted for product showcases, design reviews and investor-education mockups.</p>
+        </div>
+        <div>
+          <p class="foot-head">Platform</p>
+          <a href="#/dashboard">Dashboard</a><a href="#/markets">Markets</a><a href="#/investors">Investors</a><a href="#/charts">Charts</a>
+        </div>
+        <div>
+          <p class="foot-head">Resources</p>
+          <a href="#/portfolios">Portfolios</a><a href="#/watchlist">Watchlist</a><a href="#/about">About</a><a href="#/help">Help</a>
+        </div>
+        <div>
+          <p class="foot-head">Session</p>
+          <p class="text-xs text-slate-400"><span class="text-mint-400 font-bold">● Demo Account</span> — simulated KES balances</p>
+          <p class="text-xs text-slate-500 mt-2">Not connected to any brokerage.</p>
+        </div>
+      </div>
+      <div class="disclaimer">
+        <strong>RISK &amp; DEMO DISCLAIMER —</strong>
+        “PRO STOCKS is a demonstration platform. All investor profiles, portfolio balances, returns, and performance figures shown in this interface are simulated and do not represent actual investments, accounts, or investment results.”
+      </div>
+      <p class="text-[11px] text-slate-600 mt-3">© 2026 PRO STOCKS Demo. For illustration purposes only. Not investment advice.</p>
+    </footer>
+  </main>
+</div>
+
+<!-- Mobile bottom nav -->
+<nav class="bottomnav lg:hidden">
+  <a href="#/dashboard" data-route="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Home</span></a>
+  <a href="#/markets" data-route="markets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg><span>Markets</span></a>
+  <a href="#/investors" data-route="investors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Investors</span></a>
+  <a href="#/charts" data-route="charts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span>Charts</span></a>
+  <button id="btn-more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>More</span></button>
+</nav>
+
+<!-- Welcome / disclaimer modal -->
+<div id="welcome-modal" class="modal-scrim hidden">
+  <div class="modal">
+    <div class="flex items-center gap-3">
+      <span class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="19" x2="6" y2="13"/><line x1="12" y1="19" x2="12" y2="5"/><line x1="18" y1="19" x2="18" y2="10"/></svg></span>
+      <h2 class="font-display text-xl font-bold">Welcome to <span class="text-white">PRO</span> <span class="text-mint-500">STOCKS</span></h2>
+    </div>
+    <div class="mt-4 rounded-xl border border-amber-300/30 bg-amber-300/5 p-4">
+      <p class="text-xs font-bold tracking-widest text-amber-300">DEMO — SIMULATED INVESTMENT DATA</p>
+      <p class="text-sm text-slate-300 mt-2 leading-relaxed">This is a <strong>demonstration / simulation platform</strong>. Every investor profile, balance, return and chart is <strong>simulated data</strong> for UI purposes. Nothing here is connected to real users, real money, or real brokerage accounts, and nothing here is investment advice.</p>
+    </div>
+    <ul class="modal-list">
+      <li><span>✓</span> Explore 100+ fictional investor portfolios</li>
+      <li><span>✓</span> Browse markets with a TradingView-powered terminal</li>
+      <li><span>✓</span> Search, filter, sort &amp; track simulated performance</li>
+    </ul>
+    <button id="btn-enter" class="btn-primary w-full mt-5">Enter Demo Platform</button>
+  </div>
+</div>
+
+<!-- Toasts -->
+<div id="toasts" class="toasts"></div>
+
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
