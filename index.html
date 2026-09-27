@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en" class="is-loading no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>EPIC WEAR — Coming Soon</title>
+  <meta name="description" content="EPIC WEAR is building something epic. Our new streetwear collection is being prepared — join the launch list and be the first to know when Drop 01 goes live." />
+  <meta name="theme-color" content="#070708" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="EPIC WEAR — We're building something epic." />
+  <meta property="og:description" content="Premium streetwear. Drop 01 is coming soon. Join the launch list." />
+  <meta property="og:image" content="assets/img/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <link rel="preload" href="assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script>
+    // Flag JS early so no-JS visitors still get a fully visible page.
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
+</head>
+<body>
+
+<!-- ============================================================
+     SVG SPRITE — logo glyphs, masks and the icon system
+     (kept in the DOM but zero-sized: display:none breaks masks)
+     ============================================================ -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <!-- EPIC glyphs: angular slab letters with a signature top-left chamfer -->
+    <path id="g-e" fill="currentColor" d="M14 0H78V24H26V38H64V62H26V76H78V100H0V14Z"/>
+    <path id="g-p" fill="currentColor" fill-rule="evenodd" d="M104 0H150L170 20V58L150 78H116V100H90V14Z M116 24V54H140L146 48V30L140 24Z"/>
+    <path id="g-i" fill="currentColor" d="M196 0H208V100H182V14Z"/>
+    <path id="g-c" fill="currentColor" d="M234 0H298V24H246V76H298V100H240L220 80V14Z"/>
+    <path id="g-dot" d="M308 76H332L326 100H302Z"/>
+
+    <!-- The diagonal "cut" that slices through the wordmark -->
+    <mask id="epic-cut" maskUnits="userSpaceOnUse" x="-20" y="-20" width="380" height="140">
+      <rect x="-20" y="-20" width="380" height="140" fill="#fff"/>
+      <path d="M-20 71L352 39V42.2L-20 74.2Z" fill="#000"/>
+    </mask>
+    <!-- Glyph-shaped mask used for the light sweep -->
+    <mask id="epic-glyphs" maskUnits="userSpaceOnUse" x="-20" y="-20" width="380" height="140">
+      <g color="#fff"><use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/></g>
+    </mask>
+    <linearGradient id="epic-sweep-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <symbol id="epic-logo" viewBox="0 0 334 100">
+      <g mask="url(#epic-cut)"><use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/></g>
+      <use href="#g-dot" fill="#FF4D17"/>
+    </symbol>
+  </defs>
+
+  <!-- ICON SYSTEM · 24px grid · 1.5 stroke · rounded joins -->
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.1 12.1a1 1 0 0 1-1 .9H7.1a1 1 0 0 1-1-.9L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3.5 4 5.5 2 10l3 1.5 1.5-1V20.5h11V10.5l1.5 1 3-1.5-2-4.5-4.5-2c-.4 1.6-1.8 2.8-3.5 2.8S8.9 5.1 8.5 3.5Z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 2h-15l1.5-2Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M2.5 3.5h2.8l2.4 11.5h10.6l2.2-8H6.1"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m11 3 1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8L11 3Z"/><path d="m18.5 15 .7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="m13.5 6 6 6-6 6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5"/><path d="m6 10.5 6-6 6 6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.7 2.4 4.5 5 4.7"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14.5 21v-8h2.7l.4-3.2h-3.1V7.9c0-.9.3-1.6 1.6-1.6h1.7V3.4a22 22 0 0 0-2.5-.1c-2.5 0-4.1 1.5-4.1 4.2v2.3H8.4V13h2.8v8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4h4.4L20 20h-4.4L4 4Z"/><path d="M19.6 4l-6.5 7.1M10.9 12.9 4.4 20"/></symbol>
+</svg>
+
+<!-- ============================================================
+     LOADER — cinematic intro
+     ============================================================ -->
+<div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading EPIC WEAR">
+  <div class="loader__beam" aria-hidden="true"></div>
+  <canvas class="loader__particles" id="loaderParticles" aria-hidden="true"></canvas>
+  <div class="loader__streaks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="loader__corner loader__corner--tl" aria-hidden="true">EPIC/WEAR<br><span>Drop 01 — Chapter I</span></div>
+  <div class="loader__corner loader__corner--tr" aria-hidden="true">EST. 2026<br><span>Premium Streetwear</span></div>
+
+  <div class="loader__stage">
+    <svg class="loader__ring" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="ring-track" cx="100" cy="100" r="96"/>
+      <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="96" pathLength="100"/>
+      <g class="ring-spin"><circle class="ring-arc" cx="100" cy="100" r="88" pathLength="100"/></g>
+      <circle class="ring-ticks" cx="100" cy="100" r="80" pathLength="100"/>
+    </svg>
+
+    <svg class="epic-svg loader__logo" id="loaderLogo" viewBox="0 0 334 100" aria-hidden="true">
+      <g mask="url(#epic-cut)">
+        <use href="#g-e" class="ll"/>
+        <use href="#g-p" class="ll"/>
+        <use href="#g-i" class="ll"/>
+        <use href="#g-c" class="ll"/>
+      </g>
+      <use href="#g-dot" class="ll ll--dot" fill="#FF4D17"/>
+      <g mask="url(#epic-glyphs)"><rect class="epic-sweep" x="-140" y="-10" width="120" height="120" fill="url(#epic-sweep-grad)"/></g>
+    </svg>
+  </div>
+
+  <div class="loader__meta">
+    <p class="loader__brand">EPIC WEAR</p>
+    <p class="loader__status">Loading Collection<span class="dots"><i>.</i><i>.</i><i>.</i></span> <b id="loaderPct">0</b>%</p>
+    <div class="loader__bar" aria-hidden="true"><i id="loaderBar"></i></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     AMBIENT BACKGROUND
+     ============================================================ -->
+<div class="bg" aria-hidden="true">
+  <div class="bg__gradient bg__gradient--a"></div>
+  <div class="bg__gradient bg__gradient--b"></div>
+  <div class="bg__gradient bg__gradient--c"></div>
+  <div class="bg__beam bg__beam--1"></div>
+  <div class="bg__beam bg__beam--2"></div>
+  <div class="bg__fabric"></div>
+  <div class="bg__geo">
+    <span class="geo geo--sq1"></span>
+    <span class="geo geo--sq2"></span>
+    <span class="geo geo--line1"></span>
+    <span class="geo geo--line2"></span>
+    <span class="geo geo--circle"></span>
+  </div>
+  <div class="bg__streak"></div>
+  <canvas class="bg__particles" id="bgParticles"></canvas>
+  <div class="bg__light" id="cursorLight"></div>
+  <div class="bg__grain"></div>
+  <div class="bg__vignette"></div>
+</div>
+
+<!-- Custom cursor (desktop / fine pointer only) -->
+<div class="cursor" aria-hidden="true">
+  <div class="cursor__ring" id="cursorRing"><span class="cursor__label">View</span></div>
+  <div class="cursor__dot" id="cursorDot"></div>
+</div>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#home" class="nav__logo" data-cursor="logo" aria-label="EPIC WEAR — home">
+      <svg class="nav__mark" viewBox="0 0 334 100" aria-hidden="true"><use href="#epic-logo"/></svg>
+      <span class="nav__wear">WEAR</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#home" class="ulink is-active">Home</a>
+      <a href="#collection" class="ulink">Collection</a>
+      <a href="#about" class="ulink">About</a>
+      <a href="#contact" class="ulink">Contact</a>
+    </nav>
+
+    <a href="#drop" class="nav__status" aria-label="Coming soon — view countdown">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span class="nav__status-text">Coming Soon</span>
+    </a>
+
+    <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="menu" id="mobileMenu" aria-hidden="true">
+  <nav class="menu__links" aria-label="Mobile">
+    <a href="#home"><span class="menu__idx">01</span>Home</a>
+    <a href="#collection"><span class="menu__idx">02</span>Collection</a>
+    <a href="#about"><span class="menu__idx">03</span>About</a>
+    <a href="#contact"><span class="menu__idx">04</span>Contact</a>
+  </nav>
+  <div class="menu__foot">
+    <a href="#notify" class="btn btn--primary btn--block">
+      <svg class="icon icon--bell"><use href="#i-bell"/></svg><span>Notify Me</span>
+    </a>
+    <div class="menu__social">
+      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
+      <a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg class="icon"><use href="#i-tiktok"/></svg></a>
+      <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
+      <a href="https://x.com/" target="_blank" rel="noopener" aria-label="X"><svg class="icon"><use href="#i-x"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="home" aria-labelledby="heroTitle">
+
+    <!-- Floating line-art fashion elements -->
+    <div class="fashion" aria-hidden="true">
+      <div class="fx fx--hoodie" data-depth="0.6"><div class="fx__float">
+        <svg viewBox="0 0 64 64"><path pathLength="1" d="M22 10c2-4 18-4 20 0l10 6 6 16-7 3-3-8v29H16V27l-3 8-7-3 6-16 10-6Z"/><path pathLength="1" d="M22 10c0 7 4 12 10 12s10-5 10-12"/><path pathLength="1" d="M22 42h20l-3 8H25l-3-8Z"/><path pathLength="1" d="M29 22v8M35 22v8"/></svg>
+      </div></div>
+      <div class="fx fx--tee" data-depth="0.35"><div class="fx__float">
+        <svg viewBox="0 0 64 64"><path pathLength="1" d="M22 8 10 13 4 25l8 4 4-3v30h32V26l4 3 8-4-6-12L42 8c-1 5-5 8-10 8s-9-3-10-8Z"/></svg>
+      </div></div>
+      <div class="fx fx--sneaker" data-depth="0.8"><div class="fx__float">
+        <svg viewBox="0 0 64 64"><path pathLength="1" d="M5 40c0-6 1.5-13 3.5-17l8 2c3 1 5 4 9 5l12 3c8 2 14 4 18 8 3 3 4.5 5 4.5 8v3H7c-1 0-2-1-2-2v-10Z"/><path pathLength="1" d="M5 45.5h55"/><path pathLength="1" d="M19 28.5l3.5-3M25 31l3.5-3.2M31 33l3.2-3"/></svg>
+      </div></div>
+      <div class="fx fx--cap" data-depth="0.5"><div class="fx__float">
+        <svg viewBox="0 0 64 64"><path pathLength="1" d="M8 40c0-14 10-24 24-24s24 10 24 24Z"/><path pathLength="1" d="M34 40h23c3 0 4 3 1 4.2-6 2.2-15 2.4-26 .6"/><path pathLength="1" d="M32 16v24M20 21c4 6 5 12 5 19M44 21c-4 6-5 12-5 19"/></svg>
+      </div></div>
+      <div class="fx fx--hanger" data-depth="0.25"><div class="fx__float">
+        <svg viewBox="0 0 64 64"><path pathLength="1" d="M27 13a5 5 0 1 1 5 5v5"/><path pathLength="1" d="M32 23 6 41c-2 1.5-1 4 1.5 4h49c2.5 0 3.5-2.5 1.5-4L32 23Z"/></svg>
+      </div></div>
+      <div class="fx fx--bag" data-depth="0.7"><div class="fx__float">
+        <svg viewBox="0 0 64 64"><path pathLength="1" d="M14 22h36l-3 34H17l-3-34Z"/><path pathLength="1" d="M24 27v-7a8 8 0 0 1 16 0v7"/></svg>
+      </div></div>
+    </div>
+
+    <div class="hero__inner">
+      <div class="status-chip hero-in" style="--d:0">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span>Website under construction</span>
+        <span class="status-chip__sep" aria-hidden="true"></span>
+        <strong>Coming Soon</strong>
+      </div>
+
+      <h1 class="sr-only">EPIC WEAR</h1>
+      <div class="hero__logo" data-cursor="logo">
+        <svg class="epic-svg" id="heroLogo" viewBox="0 0 334 100" role="img" aria-label="EPIC">
+          <g mask="url(#epic-cut)">
+            <use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/>
+          </g>
+          <use href="#g-dot" fill="#FF4D17"/>
+          <g mask="url(#epic-glyphs)"><rect class="epic-sweep" x="-140" y="-10" width="120" height="120" fill="url(#epic-sweep-grad)"/></g>
+        </svg>
+      </div>
+      <p class="hero__wear hero-in" style="--d:1" aria-hidden="true"><span>W</span><span>E</span><span>A</span><span>R</span></p>
+
+      <h2 class="hero__title" id="heroTitle">
+        <span class="line"><span class="hero-in hero-in--mask" style="--d:2">We're building</span></span>
+        <span class="line"><span class="hero-in hero-in--mask" style="--d:3">something <em>epic.</em></span></span>
+      </h2>
+
+      <p class="hero__text hero-in" style="--d:4">Our new collection is currently being prepared. Stay tuned for the official EPIC WEAR launch.</p>
+
+      <div class="hero__cta hero-in" style="--d:5">
+        <a href="#notify" class="btn btn--primary magnetic" data-cursor="button">
+          <span class="btn__inner">
+            <svg class="icon icon--bell" aria-hidden="true"><use href="#i-bell"/></svg>
+            <span>Notify Me</span>
+            <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </span>
+        </a>
+        <a href="#collection" class="btn btn--ghost magnetic" data-cursor="button">
+          <span class="btn__inner">
+            <svg class="icon icon--spark" aria-hidden="true"><use href="#i-spark"/></svg>
+            <span>Preview Drop 01</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__side hero__side--left hero-in" style="--d:6" aria-hidden="true">Drop 01 — Chapter I</div>
+    <div class="hero__side hero__side--right hero-in" style="--d:6" aria-hidden="true">Premium · Modern · Bold</div>
+
+    <a href="#drop" class="hero__scroll hero-in" style="--d:7" aria-label="Scroll to countdown">
+      <span>Scroll</span><i aria-hidden="true"></i>
+    </a>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-label="Premium, modern, bold, streetwear, coming soon">
+    <div class="marquee__track" aria-hidden="true">
+      <div class="marquee__group">
+        <span>Premium</span><b>✦</b><span class="o">Modern</span><b>✦</b><span>Bold</span><b>✦</b><span class="o">Streetwear</span><b>✦</b><span>Coming Soon</span><b>✦</b>
+      </div>
+      <div class="marquee__group">
+        <span>Premium</span><b>✦</b><span class="o">Modern</span><b>✦</b><span>Bold</span><b>✦</b><span class="o">Streetwear</span><b>✦</b><span>Coming Soon</span><b>✦</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       COUNTDOWN
+       Set data-launch to an ISO date to enable the countdown.
+       Leave it empty (data-launch="") to show "LAUNCHING SOON".
+       ============================================================ -->
+  <section class="drop section" id="drop" data-launch="2026-10-16T18:00:00Z" aria-labelledby="dropTitle">
+    <div class="container">
+      <p class="eyebrow" data-reveal><span>[01]</span> The Countdown</p>
+      <h2 class="section-title" id="dropTitle" data-split>The Epic Drop</h2>
+
+      <div class="countdown" id="countdown" data-reveal role="timer" aria-live="off">
+        <div class="cd-unit"><div class="cd-num" data-unit="days"><span class="cd-digit"><i>0</i></span><span class="cd-digit"><i>0</i></span></div><span class="cd-label">Days</span></div>
+        <span class="cd-sep" aria-hidden="true">:</span>
+        <div class="cd-unit"><div class="cd-num" data-unit="hours"><span class="cd-digit"><i>0</i></span><span class="cd-digit"><i>0</i></span></div><span class="cd-label">Hours</span></div>
+        <span class="cd-sep" aria-hidden="true">:</span>
+        <div class="cd-unit"><div class="cd-num" data-unit="minutes"><span class="cd-digit"><i>0</i></span><span class="cd-digit"><i>0</i></span></div><span class="cd-label">Minutes</span></div>
+        <span class="cd-sep" aria-hidden="true">:</span>
+        <div class="cd-unit"><div class="cd-num" data-unit="seconds"><span class="cd-digit"><i>0</i></span><span class="cd-digit"><i>0</i></span></div><span class="cd-label">Seconds</span></div>
+      </div>
+
+      <p class="launching-soon" id="launchingSoon" hidden>
+        <span>Launching</span> <span class="o">Soon</span>
+      </p>
+
+      <p class="drop__meta" id="dropMeta" data-reveal>
+        <svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg>
+        <span id="dropDate">Drop 01 · Date to be announced</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COLLECTION TEASER
+       ============================================================ -->
+  <section class="collection section" id="collection" aria-labelledby="collectionTitle">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-reveal><span>[02]</span> First Look</p>
+          <h2 class="section-title" id="collectionTitle" data-split>Drop 01 — Classified</h2>
+        </div>
+        <p class="section-head__text" data-reveal>Three categories. Heavyweight fabrics, sharp silhouettes, zero compromise. Full reveal on launch day.</p>
+      </div>
+
+      <div class="cards">
+        <button class="card" type="button" data-cursor="view" data-reveal data-full="assets/img/drop-outerwear.webp" data-title="01 — Outerwear" aria-label="View Outerwear preview">
+          <div class="card__media">
+            <picture>
+              <source srcset="assets/img/drop-outerwear.webp" type="image/webp" />
+              <img src="assets/img/drop-outerwear.jpg" alt="Model in an oversized black hoodie, hood up, lit by a single rim light" loading="lazy" decoding="async" width="720" height="1290" data-parallax="0.12" />
+            </picture>
+          </div>
+          <div class="card__overlay">
+            <span class="card__tag">Classified</span>
+            <div class="card__info">
+              <span class="card__idx">01</span>
+              <h3 class="card__title">Outerwear</h3>
+              <span class="card__soon">Coming Soon <svg class="icon icon--arrow"><use href="#i-arrow"/></svg></span>
+            </div>
+          </div>
+        </button>
+
+        <button class="card card--offset" type="button" data-cursor="view" data-reveal data-full="assets/img/drop-footwear.webp" data-title="02 — Footwear" aria-label="View Footwear preview">
+          <div class="card__media">
+            <picture>
+              <source srcset="assets/img/drop-footwear.webp" type="image/webp" />
+              <img src="assets/img/drop-footwear.jpg" alt="Off-white chunky sneaker floating against a dark background" loading="lazy" decoding="async" width="720" height="1290" data-parallax="0.12" />
+            </picture>
+          </div>
+          <div class="card__overlay">
+            <span class="card__tag">Classified</span>
+            <div class="card__info">
+              <span class="card__idx">02</span>
+              <h3 class="card__title">Footwear</h3>
+              <span class="card__soon">Coming Soon <svg class="icon icon--arrow"><use href="#i-arrow"/></svg></span>
+            </div>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-cursor="view" data-reveal data-full="assets/img/drop-essentials.webp" data-title="03 — Essentials" aria-label="View Essentials preview">
+          <div class="card__media">
+            <picture>
+              <source srcset="assets/img/drop-essentials.webp" type="image/webp" />
+              <img src="assets/img/drop-essentials.jpg" alt="Black oversized t-shirt and cap on a steel hanger under a spotlight" loading="lazy" decoding="async" width="720" height="1290" data-parallax="0.12" />
+            </picture>
+          </div>
+          <div class="card__overlay">
+            <span class="card__tag">Classified</span>
+            <div class="card__info">
+              <span class="card__idx">03</span>
+              <h3 class="card__title">Essentials</h3>
+              <span class="card__soon">Coming Soon <svg class="icon icon--arrow"><use href="#i-arrow"/></svg></span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT / MANIFESTO
+       ============================================================ -->
+  <section class="about section" id="about" aria-labelledby="aboutTitle">
+    <div class="container">
+      <p class="eyebrow" data-reveal><span>[03]</span> The Manifesto</p>
+      <h2 class="sr-only" id="aboutTitle">About EPIC WEAR</h2>
+      <p class="manifesto" id="manifesto">EPIC WEAR is not made for the background. Cut from heavyweight fabrics, finished with obsessive detail and designed for the ones who refuse to blend in. <em>Built for those who stand out.</em></p>
+
+      <div class="features">
+        <article class="feature" data-reveal>
+          <div class="feature__icon icon-hover icon-hover--scale"><svg class="icon"><use href="#i-bag"/></svg></div>
+          <span class="feature__idx">A</span>
+          <h3>Shop</h3>
+          <p>The EPIC WEAR flagship online store opens its doors on launch day.</p>
+        </article>
+        <article class="feature" data-reveal>
+          <div class="feature__icon icon-hover icon-hover--rotate"><svg class="icon"><use href="#i-shirt"/></svg></div>
+          <span class="feature__idx">B</span>
+          <h3>Collection</h3>
+          <p>Drop 01 — outerwear, footwear and essentials built to last.</p>
+        </article>
+        <article class="feature" data-reveal>
+          <div class="feature__icon icon-hover icon-hover--nudge"><svg class="icon"><use href="#i-cart"/></svg></div>
+          <span class="feature__idx">C</span>
+          <h3>Shopping</h3>
+          <p>Fast, seamless checkout with worldwide shipping from day one.</p>
+        </article>
+        <article class="feature" data-reveal>
+          <div class="feature__icon icon-hover icon-hover--twinkle"><svg class="icon"><use href="#i-spark"/></svg></div>
+          <span class="feature__idx">D</span>
+          <h3>New Collection</h3>
+          <p>Limited runs. Once a piece is gone, it's gone for good.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EMAIL NOTIFICATION
+       Add data-endpoint="https://…" to the form to POST signups
+       to your backend / ESP. Without it, signups are stored locally.
+       ============================================================ -->
+  <section class="notify section" id="notify" aria-labelledby="notifyTitle">
+    <div class="container">
+      <div class="notify__card" data-reveal>
+        <div class="notify__glow" aria-hidden="true"></div>
+        <div class="notify__bell icon-hover icon-hover--shake" aria-hidden="true"><svg class="icon"><use href="#i-bell"/></svg></div>
+        <p class="eyebrow eyebrow--center"><span>[04]</span> Launch List</p>
+        <h2 class="section-title section-title--center" id="notifyTitle" data-split>Be the first to know</h2>
+        <p class="notify__text">Join the EPIC WEAR launch list and get notified when the collection goes live.</p>
+
+        <form class="signup" id="signupForm" novalidate data-endpoint="">
+          <div class="signup__row">
+            <label class="signup__field">
+              <span class="sr-only">Email address</span>
+              <svg class="icon icon--mail" aria-hidden="true"><use href="#i-mail"/></svg>
+              <input type="email" name="email" id="email" placeholder="Enter your email address" autocomplete="email" required />
+            </label>
+            <button type="submit" class="btn btn--primary magnetic signup__btn" data-cursor="button">
+              <span class="btn__inner">
+                <span>Notify Me</span>
+                <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </span>
+            </button>
+          </div>
+          <p class="signup__error" id="signupError" role="alert"></p>
+          <p class="signup__note">No spam. Only the drop. Unsubscribe anytime.</p>
+        </form>
+
+        <div class="success" id="signupSuccess" hidden tabindex="-1">
+          <svg class="success__check" viewBox="0 0 52 52" aria-hidden="true">
+            <circle class="success__circle" cx="26" cy="26" r="24" pathLength="1"/>
+            <path class="success__tick" d="m15 27 7.5 7.5L38 19" pathLength="1"/>
+          </svg>
+          <h3 class="success__title">You're on the list.</h3>
+          <p class="success__text">We'll email <b id="successEmail"></b> the moment Drop 01 goes live.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="contact section" id="contact" aria-labelledby="contactTitle">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-reveal><span>[05]</span> Get in Touch</p>
+          <h2 class="section-title" id="contactTitle" data-split>Contact</h2>
+        </div>
+        <p class="section-head__text" data-reveal>Press, partnerships or wholesale — the studio is listening.</p>
+      </div>
+
+      <div class="contact__grid">
+        <a class="contact__item" href="mailto:hello@epicwear.com" data-reveal>
+          <span class="contact__icon icon-hover icon-hover--pulse"><svg class="icon"><use href="#i-mail"/></svg></span>
+          <span class="contact__label">Email</span>
+          <span class="contact__value">hello@epicwear.com</span>
+          <svg class="icon icon--arrow contact__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="contact__item" href="tel:+15550142026" data-reveal>
+          <span class="contact__icon icon-hover icon-hover--wiggle"><svg class="icon"><use href="#i-phone"/></svg></span>
+          <span class="contact__label">Contact</span>
+          <span class="contact__value">+1 (555) 014-2026</span>
+          <svg class="icon icon--arrow contact__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <div class="contact__item" data-reveal>
+          <span class="contact__icon icon-hover icon-hover--bounce"><svg class="icon"><use href="#i-pin"/></svg></span>
+          <span class="contact__label">Location</span>
+          <span class="contact__value">Worldwide — HQ reveal soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOCIAL
+       ============================================================ -->
+  <section class="social section" aria-labelledby="socialTitle">
+    <div class="container">
+      <h2 class="social__title" id="socialTitle" data-split>Follow the Epic Journey</h2>
+      <p class="social__handle" data-reveal>@epicwear</p>
+      <div class="social__list">
+        <a class="social__link magnetic" href="https://instagram.com/" target="_blank" rel="noopener" data-cursor="button" data-reveal>
+          <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg><span>Instagram</span>
+        </a>
+        <a class="social__link magnetic" href="https://tiktok.com/" target="_blank" rel="noopener" data-cursor="button" data-reveal>
+          <svg class="icon" aria-hidden="true"><use href="#i-tiktok"/></svg><span>TikTok</span>
+        </a>
+        <a class="social__link magnetic" href="https://facebook.com/" target="_blank" rel="noopener" data-cursor="button" data-reveal>
+          <svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg><span>Facebook</span>
+        </a>
+        <a class="social__link magnetic" href="https://x.com/" target="_blank" rel="noopener" data-cursor="button" data-reveal>
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg><span>X</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="footer__line" aria-hidden="true"></div>
+  <div class="container footer__top">
+    <a href="#home" class="footer__logo" data-cursor="logo" aria-label="EPIC WEAR — back to top">
+      <svg viewBox="0 0 334 100" aria-hidden="true"><use href="#epic-logo"/></svg>
+      <span>WEAR</span>
+    </a>
+    <p class="footer__tagline" data-split>Built for those who stand out.</p>
+    <a href="#home" class="footer__top-btn magnetic" data-cursor="button" aria-label="Back to top">
+      <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg>
+    </a>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© 2026 EPIC WEAR. All rights reserved.</p>
+    <nav class="footer__links" aria-label="Legal">
+      <a href="#" class="ulink" data-dialog="privacy">Privacy</a>
+      <a href="#" class="ulink" data-dialog="terms">Terms</a>
+      <a href="#contact" class="ulink">Contact</a>
+    </nav>
+  </div>
+
+  <div class="footer__giant" aria-hidden="true">
+    <svg viewBox="-2 -2 338 104">
+      <g mask="url(#epic-cut)"><use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/></g>
+      <use href="#g-dot" class="footer__giant-dot"/>
+    </svg>
+  </div>
+</footer>
+
+<!-- Dialogs -->
+<dialog class="modal" id="dialog-privacy" aria-labelledby="privacyTitle">
+  <button class="modal__close" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+  <p class="eyebrow">Legal</p>
+  <h2 id="privacyTitle">Privacy</h2>
+  <p>We only collect the email address you give us to notify you about the EPIC WEAR launch. We never sell your data, and you can unsubscribe at any moment. A full privacy policy will be published with the store launch.</p>
+</dialog>
+<dialog class="modal" id="dialog-terms" aria-labelledby="termsTitle">
+  <button class="modal__close" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+  <p class="eyebrow">Legal</p>
+  <h2 id="termsTitle">Terms</h2>
+  <p>This website is a pre-launch preview of EPIC WEAR. Imagery and product details are subject to change before release. Full terms of sale will be available when the store opens.</p>
+</dialog>
+<dialog class="modal modal--image" id="dialog-image" aria-label="Collection preview">
+  <button class="modal__close" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+  <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" />
+  <p class="modal__caption"><span id="lightboxTitle"></span><span>Full reveal on launch day</span></p>
+</dialog>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
