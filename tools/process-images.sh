@@ -7,6 +7,7 @@
 # Produces public/assets/img/products/<slug>/<n>-{480,960}.{avif,webp}
 #   n=1 is the full shot; every extra crop "cx,cy,size" (fractions of the
 #   source, size = crop width/height fraction) becomes a zoomed detail shot.
+#   IDX=2 tools/process-images.sh …  writes the full shot as index 2 (extra photos).
 # Example:
 #   tools/process-images.sh raw/signature-hoodie.jpg signature-hoodie 0.5,0.45,0.42
 # ---------------------------------------------------------------------------
@@ -26,9 +27,9 @@ emit () { # $1=input $2=index
 # 1 — full frame, normalised to 4:5
 tmp=$(mktemp --suffix=.png)
 convert "$src" -gravity center -crop "$(( H * 4 / 5 < W ? H * 4 / 5 : W ))x$(( H * 4 / 5 < W ? H : W * 5 / 4 ))+0+0" +repage "$tmp"
-emit "$tmp" 1
+emit "$tmp" "${IDX:-1}"
 
-i=2
+i=$(( ${IDX:-1} + 1 ))
 for c in "$@"; do
   IFS=, read -r cx cy s <<< "$c"
   cw=$(python3 -c "print(int($W*$s))"); ch=$(python3 -c "print(int($W*$s*5/4))")

@@ -109,7 +109,7 @@ export function seoFor(pathname, query = {}) {
   }
 
   const statics = {
-    '/collections': ['Collections — Campaigns & Drops', 'Explore EPIC WEAR campaigns: New Drop, EPIC Essentials, Street Collection, Limited Edition and EPIC × Sharon Thrift Wear.'],
+    '/collections': ['Collections — Campaigns & Drops', 'Explore EPIC WEAR campaigns: New Drop, EPIC Essentials, Street Collection, Limited Edition, EPIC × Sharon Thrift Wear and EPIC Evening.'],
     '/collab': ['EPIC WEAR × Sharon Thrift Wear — Two Brands. One EPIC Movement.', 'The official EPIC WEAR × SHARON THRIFT WEAR collaboration: reworked vintage and new EPIC streetwear in one limited collection.'],
     '/about': ['About — This Is EPIC', 'The story behind EPIC WEAR, a premium streetwear brand from Nairobi, Kenya, founded by Vincent Omondi.'],
     '/contact': ['Contact — Get In Touch', 'Contact EPIC WEAR: call or WhatsApp +254 742 850 266, email us, or send a message for support and business inquiries.'],

@@ -191,6 +191,63 @@ export const DEFAULT_CONTENT = {
   },
 };
 
+// ---- drops -------------------------------------------------------------------------------------
+// Catalogue additions applied exactly once per database (recorded under content key
+// `_seed_drops`), so live stores receive new collections on restart while admin edits
+// and deletions made afterwards are never overwritten.
+const DRESS = ['XS', 'S', 'M', 'L', 'XL'];
+const DROPS = [
+  {
+    id: '2026-09-epic-evening',
+    collections: [
+      ['epic-evening', 'EPIC Evening', 'Drop 03 — After dark', 'Made for the night.', 'Sculpted silhouettes in taffeta, satin and stretch crepe. Four dresses built for evenings you plan to remember — bold, minimal and unmistakably EPIC.', '/assets/img/collections/epic-evening/1', 6],
+    ],
+    // same tuple shape as PRODUCTS
+    products: [
+      ['strapless-puffball-mini', 'EPIC Strapless Puffball Mini', 'dresses', 'women', 6800, null, [BLACK], DRESS, ['epic-evening', 'new-drop'], 0, 2,
+        'A boned strapless bodice with a dropped V-waist that bursts into a full puffball skirt in crisp black taffeta. Sculpted, playful and impossible to ignore.',
+        ['Crisp taffeta with a soft sheen', 'Boned corset bodice with silicone grip at the neckline', 'Dropped V-waist, gathered puffball skirt', 'Concealed back zip', 'Fully lined', 'Mini length'],
+        'dress strapless puffball bubble corset mini black evening party taffeta night out women', []],
+      ['corset-midi-dress', 'EPIC Corset Midi Dress', 'dresses', 'women', 7800, null, [BLACK], DRESS, ['epic-evening'], 0, 2,
+        'A strapless corset bodice with sharp vertical seaming, flowing into a liquid satin midi skirt with a thigh-high side slit.',
+        ['Heavy duchess-style satin', 'Structured corset bodice with boning', 'Bias-cut midi skirt with side slit', 'Concealed back zip', 'Fully lined'],
+        'dress corset midi satin strapless black evening gala slit women', []],
+      ['bubble-hem-slip-dress', 'EPIC Bubble-Hem Slip Dress', 'dresses', 'women', 5900, null, [BONE], DRESS, ['epic-evening'], 0, 2,
+        'Fine adjustable straps and a softly draped cowl neckline over a gathered bubble hem, in bone satin that catches every light.',
+        ['Fluid satin with a pearl sheen', 'Adjustable spaghetti straps', 'Soft cowl neckline', 'Gathered bubble hem, above the knee', 'Lined'],
+        'dress slip satin bubble hem cowl short cream ivory bone white evening women', []],
+      ['halter-mini-dress', 'EPIC Halter Mini Dress', 'dresses', 'women', 5500, null, [BLACK], DRESS, ['epic-evening'], 0, 2,
+        'A halter-neck mini in ruched stretch crepe with an open back — body-skimming, clean and ready for the night.',
+        ['Stretch crepe with a matte finish', 'Halter neck with hook fastening', 'Open back', 'Side ruching', 'Mini length'],
+        'dress halter mini ruched open back bodycon black evening party women', []],
+    ],
+  },
+];
+
+function applyDrops() {
+  const applied = getContent('_seed_drops', []);
+  const pending = DROPS.filter((d) => !applied.includes(d.id));
+  if (!pending.length) return;
+  const insert = db.prepare(`INSERT OR IGNORE INTO products
+    (slug, name, category, gender, price, compare_at, description, details, colors, sizes, stock, images, collections, tags, featured, status, sort, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, datetime('now'), datetime('now'))`);
+  const insertCol = db.prepare(`INSERT OR IGNORE INTO collections (slug, name, kicker, headline, description, banner, sort) VALUES (?, ?, ?, ?, ?, ?, ?)`);
+  tx(() => {
+    for (const drop of pending) {
+      drop.collections.forEach((c) => insertCol.run(...c));
+      drop.products.forEach((p, i) => {
+        const [slug, name, category, gender, price, compareAt, colors, sizes, collections, featured, photos, description, details, tags, soldOut] = p;
+        insert.run(slug, name, category, gender, price, compareAt, description, JSON.stringify(details), JSON.stringify(colors),
+          JSON.stringify(sizes), JSON.stringify(stockFor(sizes, (slug.length + i) * 11 + 5, soldOut)), JSON.stringify(img(slug, photos)),
+          JSON.stringify(collections), tags, featured, 30 + i);
+      });
+      applied.push(drop.id);
+      console.log(`  ✓ Applied drop ${drop.id}: ${drop.products.length} products, ${drop.collections.length} collection(s)`);
+    }
+    setContent('_seed_drops', applied);
+  });
+}
+
 export function seed() {
   const count = db.prepare('SELECT COUNT(*) AS n FROM products').get().n;
   if (count === 0) {
@@ -210,6 +267,7 @@ export function seed() {
     });
     console.log(`  ✓ Seeded ${PRODUCTS.length} products, ${COLLECTIONS.length} collections`);
   }
+  applyDrops();
   for (const [key, value] of Object.entries(DEFAULT_CONTENT)) {
     const existing = getContent(key, null);
     if (!existing) setContent(key, value);

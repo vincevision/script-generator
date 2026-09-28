@@ -34,8 +34,8 @@ export const btn = (label, { href, iconName = 'arrow', variant = 'primary', attr
     : html`<button type="button" class="btn btn--${variant} magnetic" data-cursor="button" ${raw(attrs)}>${inner}</button>`;
 };
 
-export const campaignTile = (c, { big = false, i = 0 } = {}) => html`<a href="${c.slug === 'new-drop' ? '/new-drop' : c.slug === 'epic-x-sharon' ? '/collab' : `/collections/${c.slug}`}" class="campaign ${big ? 'campaign--big' : ''} ${c.slug === 'epic-x-sharon' ? 'campaign--collab' : ''}" data-reveal data-cursor="view" data-cursor-label="Explore">
-  <div class="campaign__media reveal-img">${pic(c.banner, { alt: `${c.name} — EPIC WEAR campaign`, sizes: big ? '(max-width: 800px) 100vw, 50vw' : '(max-width: 800px) 100vw, 25vw' })}</div>
+export const campaignTile = (c, { big = false, wide = false, i = 0 } = {}) => html`<a href="${c.slug === 'new-drop' ? '/new-drop' : c.slug === 'epic-x-sharon' ? '/collab' : `/collections/${c.slug}`}" class="campaign ${big ? 'campaign--big' : ''} ${c.slug === 'epic-x-sharon' ? 'campaign--collab' : ''}" data-reveal data-cursor="view" data-cursor-label="Explore">
+  <div class="campaign__media reveal-img">${pic(c.banner, { alt: `${c.name} — EPIC WEAR campaign`, sizes: wide ? '100vw' : big ? '(max-width: 800px) 100vw, 50vw' : '(max-width: 800px) 100vw, 25vw' })}</div>
   <div class="campaign__overlay">
     <span class="campaign__idx">${String(i + 1).padStart(2, '0')} / ${c.kicker}</span>
     <div>

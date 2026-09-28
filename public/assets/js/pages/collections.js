@@ -16,7 +16,7 @@ export default async function collections() {
   <p class="phero__text hero-in" style="--d:2">Every EPIC drop tells its own story. Pick a campaign — each one has its own mood, its own pieces and the same obsession with detail.</p>
 </header>
 <div class="container coll-list">
-  ${list.map((c, i) => campaignTile(c, { big: true, i }))}
+  ${list.map((c, i) => campaignTile(c, { big: true, wide: true, i }))}
 </div>`,
   };
 }

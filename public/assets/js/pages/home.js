@@ -92,8 +92,8 @@ export default async function home() {
 
 <section class="section section--tight" aria-labelledby="campTitle">
   <div class="container">
-    ${sectionHead({ id: 'campTitle', idx: '02', eyebrow: 'Campaigns', title: 'The Collections', text: 'Five stories, one identity. Every campaign has its own mood — all of them are unmistakably EPIC.', action: btn('All collections', { href: '/collections', variant: 'ghost' }) })}
-    <div class="campaigns">${campaigns.map((x, i) => campaignTile(x, { big: i === 0, i }))}</div>
+    ${sectionHead({ id: 'campTitle', idx: '02', eyebrow: 'Campaigns', title: 'The Collections', text: `${['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'][campaigns.length - 1] || campaigns.length} stories, one identity. Every campaign has its own mood — all of them are unmistakably EPIC.`, action: btn('All collections', { href: '/collections', variant: 'ghost' }) })}
+    <div class="campaigns">${campaigns.map((x, i) => campaignTile(x, { big: i === 0, wide: i >= 5, i }))}</div>
   </div>
 </section>
 

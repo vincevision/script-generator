@@ -137,7 +137,15 @@ tools/process-images.sh    raw photo → 4:5 AVIF/WebP at 480 & 960
 tools/process-images.sh raw/photo.jpg <product-slug>      # writes public/assets/img/products/<slug>/<n>-{480,960}.{avif,webp}
 ```
 
-You can also upload photos in **Admin → Products**.
+Use `IDX=2 tools/process-images.sh raw/back.jpg <product-slug>` to add a second (third…) photo. You can also upload photos in **Admin → Products**.
+
+### Adding a new drop from code
+
+New collections and products can ship with a deploy by adding an entry to `DROPS` in `server/seed.js`. For example, `2026-09-epic-evening` adds the EPIC Evening collection and its four dresses.
+
+- Each drop is applied once per database on start-up and recorded under the `_seed_drops` key. Existing live stores receive it on their next restart.
+- Anything an admin edits or deletes afterwards is never overwritten.
+- Put the images in `public/assets/img/products/<slug>/`. Collection banners go in `public/assets/img/collections/<slug>/`.
 
 ---
 
