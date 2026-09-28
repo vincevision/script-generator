@@ -10,7 +10,7 @@ const PAGE = 12;
 const SORTS = [['featured', 'Featured'], ['newest', 'Newest'], ['price-asc', 'Price: low → high'], ['price-desc', 'Price: high → low']];
 const PRICES = [['0-3000', 'Under 3,000'], ['3000-6000', '3,000 – 6,000'], ['6000-10000', '6,000 – 10,000'], ['10000-', '10,000+']];
 const GENDERS = [['men', 'Men'], ['women', 'Women'], ['unisex', 'Unisex']];
-const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '28', '30', '32', '34', '36', '38', 'One Size'];
+const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '26', '28', '30', '32', '34', '36', '38', 'One Size'];
 
 function readFilters(q) {
   return {

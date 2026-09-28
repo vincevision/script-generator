@@ -47,6 +47,9 @@ export function fmtDate(s, opts = { day: 'numeric', month: 'short', year: 'numer
  * (/assets/img/products/x/1) with -480/-960 AVIF + WebP variants;
  * admin uploads are full URLs and are used as-is.
  */
+/** Bump when catalogue photos are replaced in place (images are cached for 30 days). */
+const IMG_V = '?v=2';
+
 export function pic(src, { alt = '', sizes = '(max-width: 700px) 50vw, (max-width: 1200px) 33vw, 25vw', eager = false, cls = '', w = 960, h = 1200 } = {}) {
   if (!src) return raw(`<span class="pic-empty ${cls}" role="img" aria-label="${esc(alt)}"><svg viewBox="0 0 334 100" aria-hidden="true"><use href="#epic-logo"/></svg></span>`);
   const loading = eager ? 'eager" fetchpriority="high' : 'lazy';
@@ -54,10 +57,10 @@ export function pic(src, { alt = '', sizes = '(max-width: 700px) 50vw, (max-widt
     return raw(`<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="${loading}" decoding="async" width="${w}" height="${h}">`);
   }
   const s = esc(src);
-  return raw(`<picture class="${cls}"><source type="image/avif" srcset="${s}-480.avif 480w, ${s}-960.avif 960w" sizes="${sizes}"><source type="image/webp" srcset="${s}-480.webp 480w, ${s}-960.webp 960w" sizes="${sizes}"><img src="${s}-960.webp" alt="${esc(alt)}" loading="${loading}" decoding="async" width="${w}" height="${h}"></picture>`);
+  return raw(`<picture class="${cls}"><source type="image/avif" srcset="${s}-480.avif${IMG_V} 480w, ${s}-960.avif${IMG_V} 960w" sizes="${sizes}"><source type="image/webp" srcset="${s}-480.webp${IMG_V} 480w, ${s}-960.webp${IMG_V} 960w" sizes="${sizes}"><img src="${s}-960.webp${IMG_V}" alt="${esc(alt)}" loading="${loading}" decoding="async" width="${w}" height="${h}"></picture>`);
 }
 /** URL of a single bitmap for canvas work / backgrounds. */
-export const imgUrl = (src, size = 960) => (!src ? '' : /\.\w{3,4}$/.test(src) ? src : `${src}-${size}.webp`);
+export const imgUrl = (src, size = 960) => (!src ? '' : /\.\w{3,4}$/.test(src) ? src : `${src}-${size}.webp${IMG_V}`);
 
 export function debounce(fn, ms = 200) {
   let t;

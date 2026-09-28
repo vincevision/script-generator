@@ -139,6 +139,8 @@ tools/process-images.sh raw/photo.jpg <product-slug>      # writes public/assets
 
 Use `IDX=2 tools/process-images.sh raw/back.jpg <product-slug>` to add a second (third…) photo. You can also upload photos in **Admin → Products**.
 
+Replacing an existing photo in place? Catalogue images are cached for 30 days, so bump `IMG_V` in `public/assets/js/lib/dom.js` (e.g. `?v=2` → `?v=3`) so visitors get the new file straight away.
+
 ### Adding a new drop from code
 
 New collections and products can ship with a deploy by adding an entry to `DROPS` in `server/seed.js`. For example, `2026-09-epic-evening` adds the EPIC Evening collection and its four dresses.

@@ -25,6 +25,7 @@ const HEATHER = { name: 'Heather Grey', hex: '#a9a9ab' };
 const SAND = { name: 'Sand', hex: '#cdb992' };
 const WASHED = { name: 'Washed Black', hex: '#2a2a2d' };
 const INDIGO = { name: 'Vintage Indigo', hex: '#6f86a6' };
+const BLUSH = { name: 'Blush Stone', hex: '#d9c3b4' };
 
 // [slug, name, category, gender, price, compareAt, colors, sizes, collections, featured, photos, description, details, tags, soldOut]
 const PRODUCTS = [
@@ -196,6 +197,7 @@ export const DEFAULT_CONTENT = {
 // `_seed_drops`), so live stores receive new collections on restart while admin edits
 // and deletions made afterwards are never overwritten.
 const DRESS = ['XS', 'S', 'M', 'L', 'XL'];
+const WAIST_W = ['26', '28', '30', '32', '34'];
 const DROPS = [
   {
     id: '2026-09-epic-evening',
@@ -222,6 +224,17 @@ const DROPS = [
         'dress halter mini ruched open back bodycon black evening party women', []],
     ],
   },
+  {
+    id: '2026-10-high-rise-cargo',
+    sort: 40,
+    collections: [],
+    products: [
+      ['high-rise-cargo-jeans', 'EPIC High-Rise Cargo Jeans', 'cargo-pants', 'women', 4800, null, [BLUSH], WAIST_W, ['new-drop', 'street-collection'], 0, 2,
+        'High-rise, wide straight-leg jeans in soft blush-stone denim, finished with flap cargo pockets on each thigh. Utility energy with a clean, sharp silhouette.',
+        ['Rigid cotton denim, garment washed', 'High rise with single-button waist and zip fly', 'Wide straight leg, full length', 'Front patch pockets', 'Snap-flap cargo pockets on both thighs', 'Woven EPIC back label'],
+        'jeans denim cargo pants high rise high waisted wide straight leg pink blush beige stone light women utility pockets', []],
+    ],
+  },
 ];
 
 function applyDrops() {
@@ -239,7 +252,7 @@ function applyDrops() {
         const [slug, name, category, gender, price, compareAt, colors, sizes, collections, featured, photos, description, details, tags, soldOut] = p;
         insert.run(slug, name, category, gender, price, compareAt, description, JSON.stringify(details), JSON.stringify(colors),
           JSON.stringify(sizes), JSON.stringify(stockFor(sizes, (slug.length + i) * 11 + 5, soldOut)), JSON.stringify(img(slug, photos)),
-          JSON.stringify(collections), tags, featured, 30 + i);
+          JSON.stringify(collections), tags, featured, (drop.sort ?? 30) + i);
       });
       applied.push(drop.id);
       console.log(`  ✓ Applied drop ${drop.id}: ${drop.products.length} products, ${drop.collections.length} collection(s)`);

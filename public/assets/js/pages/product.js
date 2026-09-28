@@ -18,7 +18,7 @@ const GUIDES = {
   bottoms: {
     note: 'Measure around your natural waist. Between sizes? Size up for a relaxed fit.',
     head: ['Size', 'Waist (cm)', 'Hip (cm)', 'Inseam (cm)'],
-    rows: [['XS / 28', '71', '94', '76'], ['S / 30', '76', '99', '78'], ['M / 32', '81', '104', '79'], ['L / 34', '86', '109', '80'], ['XL / 36', '91', '114', '81'], ['XXL / 38', '96', '119', '82']],
+    rows: [['XXS / 26', '66', '89', '75'], ['XS / 28', '71', '94', '76'], ['S / 30', '76', '99', '78'], ['M / 32', '81', '104', '79'], ['L / 34', '86', '109', '80'], ['XL / 36', '91', '114', '81'], ['XXL / 38', '96', '119', '82']],
   },
   dresses: {
     note: 'Relaxed through the body. Measurements are of the garment laid flat, doubled.',
