@@ -148,6 +148,7 @@ New collections and products can ship with a deploy by adding an entry to `DROPS
 - Each drop is applied once per database on start-up and recorded under the `_seed_drops` key. Existing live stores receive it on their next restart.
 - Anything an admin edits or deletes afterwards is never overwritten.
 - Put the images in `public/assets/img/products/<slug>/`. Collection banners go in `public/assets/img/collections/<slug>/`.
+- A drop can also swap images: `banners: [[slug, oldPath, newPath]]` and `content: [[key, field, oldPath, newPath]]` only replace values that are still on the old default (see `2026-10-campaign-banners`).
 
 ---
 

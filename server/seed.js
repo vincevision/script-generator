@@ -120,11 +120,11 @@ const PRODUCTS = [
 ];
 
 const COLLECTIONS = [
-  ['new-drop', 'New Drop', 'Drop 02 — Out now', 'The new drop is here.', 'Fresh silhouettes, heavier fabrics and the pieces everyone has been asking for. Once they are gone, they are gone.', '/assets/img/products/varsity-jacket/1', 1],
-  ['epic-essentials', 'EPIC Essentials', 'The foundation', 'Everyday, elevated.', 'Heavyweight tees, hoodies and fleece built to be worn every day — the core of every EPIC wardrobe.', '/assets/img/products/oversized-essential-tee/1', 2],
-  ['street-collection', 'Street Collection', 'Built for the city', 'Made for the streets.', 'Cargos, denim and outerwear cut for movement — designed on and for the streets of Nairobi.', '/assets/img/products/nylon-bomber/1', 3],
-  ['limited-edition', 'Limited Edition', 'Numbered runs', 'Rare by design.', 'Small-batch pieces made in limited numbers. No restocks.', '/assets/img/products/varsity-jacket/3', 4],
-  ['epic-x-sharon', 'EPIC × Sharon', 'Collaboration', 'Two brands. One EPIC movement.', 'EPIC WEAR meets Sharon Thrift Wear — reworked vintage and new EPIC design in one collection.', '/assets/img/products/signature-logo-tee/1', 5],
+  ['new-drop', 'New Drop', 'Drop 02 — Out now', 'The new drop is here.', 'Fresh silhouettes, heavier fabrics and the pieces everyone has been asking for. Once they are gone, they are gone.', '/assets/img/collections/new-drop/1', 1],
+  ['epic-essentials', 'EPIC Essentials', 'The foundation', 'Everyday, elevated.', 'Heavyweight tees, hoodies and fleece built to be worn every day — the core of every EPIC wardrobe.', '/assets/img/collections/epic-essentials/1', 2],
+  ['street-collection', 'Street Collection', 'Built for the city', 'Made for the streets.', 'Cargos, denim and outerwear cut for movement — designed on and for the streets of Nairobi.', '/assets/img/collections/street-collection/1', 3],
+  ['limited-edition', 'Limited Edition', 'Numbered runs', 'Rare by design.', 'Small-batch pieces made in limited numbers. No restocks.', '/assets/img/collections/limited-edition/1', 4],
+  ['epic-x-sharon', 'EPIC × Sharon', 'Collaboration', 'Two brands. One EPIC movement.', 'EPIC WEAR meets Sharon Thrift Wear — reworked vintage and new EPIC design in one collection.', '/assets/img/collections/epic-x-sharon/1', 5],
 ];
 
 export const DEFAULT_CONTENT = {
@@ -188,7 +188,7 @@ export const DEFAULT_CONTENT = {
       'Sharon Thrift Wear is known for finding pieces with character. EPIC WEAR is known for bold, heavyweight streetwear. Together we have reworked vintage finds with EPIC detailing and cut new pieces inspired by the thrift aesthetic.',
       'The result is a limited collection that celebrates individuality — some pieces are one of a kind, all of them are made to stand out.',
     ],
-    banner: '/assets/img/products/signature-logo-tee/1',
+    banner: '/assets/img/collections/epic-x-sharon/1',
   },
 };
 
@@ -235,6 +235,21 @@ const DROPS = [
         'jeans denim cargo pants high rise high waisted wide straight leg pink blush beige stone light women utility pockets', []],
     ],
   },
+  {
+    // Dedicated campaign photography. Only replaces banners still on their original default,
+    // so anything an admin has changed is left alone.
+    id: '2026-10-campaign-banners',
+    collections: [],
+    products: [],
+    banners: [
+      ['new-drop', '/assets/img/products/varsity-jacket/1', '/assets/img/collections/new-drop/1'],
+      ['epic-essentials', '/assets/img/products/oversized-essential-tee/1', '/assets/img/collections/epic-essentials/1'],
+      ['street-collection', '/assets/img/products/nylon-bomber/1', '/assets/img/collections/street-collection/1'],
+      ['limited-edition', '/assets/img/products/varsity-jacket/3', '/assets/img/collections/limited-edition/1'],
+      ['epic-x-sharon', '/assets/img/products/signature-logo-tee/1', '/assets/img/collections/epic-x-sharon/1'],
+    ],
+    content: [['collab', 'banner', '/assets/img/products/signature-logo-tee/1', '/assets/img/collections/epic-x-sharon/1']],
+  },
 ];
 
 function applyDrops() {
@@ -254,8 +269,16 @@ function applyDrops() {
           JSON.stringify(sizes), JSON.stringify(stockFor(sizes, (slug.length + i) * 11 + 5, soldOut)), JSON.stringify(img(slug, photos)),
           JSON.stringify(collections), tags, featured, (drop.sort ?? 30) + i);
       });
+      let banners = 0;
+      for (const [slug, from, to] of drop.banners || []) {
+        banners += Number(db.prepare('UPDATE collections SET banner = ? WHERE slug = ? AND banner = ?').run(to, slug, from).changes);
+      }
+      for (const [key, field, from, to] of drop.content || []) {
+        const value = getContent(key, null);
+        if (value && value[field] === from) setContent(key, { ...value, [field]: to });
+      }
       applied.push(drop.id);
-      console.log(`  ✓ Applied drop ${drop.id}: ${drop.products.length} products, ${drop.collections.length} collection(s)`);
+      console.log(`  ✓ Applied drop ${drop.id}: ${drop.products.length} products, ${drop.collections.length} collection(s)${drop.banners ? `, ${banners} banner update(s)` : ''}`);
     }
     setContent('_seed_drops', applied);
   });

@@ -48,7 +48,7 @@ export function fmtDate(s, opts = { day: 'numeric', month: 'short', year: 'numer
  * admin uploads are full URLs and are used as-is.
  */
 /** Bump when catalogue photos are replaced in place (images are cached for 30 days). */
-const IMG_V = '?v=2';
+const IMG_V = '?v=3';
 
 export function pic(src, { alt = '', sizes = '(max-width: 700px) 50vw, (max-width: 1200px) 33vw, 25vw', eager = false, cls = '', w = 960, h = 1200 } = {}) {
   if (!src) return raw(`<span class="pic-empty ${cls}" role="img" aria-label="${esc(alt)}"><svg viewBox="0 0 334 100" aria-hidden="true"><use href="#epic-logo"/></svg></span>`);
