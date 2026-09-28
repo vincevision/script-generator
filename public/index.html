@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en" class="is-loading no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--SEO-->
+  <meta name="theme-color" content="#070708">
+  <meta name="color-scheme" content="dark">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="modulepreload" href="/assets/js/app.js">
+  <link rel="stylesheet" href="/assets/css/core.css">
+  <link rel="stylesheet" href="/assets/css/store.css">
+  <script src="/assets/js/boot.js"></script>
+</head>
+<body>
+
+<!-- ============================================================
+     SVG SPRITE — EPIC logo, masks and the line-art icon system
+     (zero-sized but never display:none — that breaks masks)
+     ============================================================ -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <path id="g-e" fill="currentColor" d="M14 0H78V24H26V38H64V62H26V76H78V100H0V14Z"/>
+    <path id="g-p" fill="currentColor" fill-rule="evenodd" d="M104 0H150L170 20V58L150 78H116V100H90V14Z M116 24V54H140L146 48V30L140 24Z"/>
+    <path id="g-i" fill="currentColor" d="M196 0H208V100H182V14Z"/>
+    <path id="g-c" fill="currentColor" d="M234 0H298V24H246V76H298V100H240L220 80V14Z"/>
+    <path id="g-dot" d="M308 76H332L326 100H302Z"/>
+    <mask id="epic-cut" maskUnits="userSpaceOnUse" x="-20" y="-20" width="380" height="140">
+      <rect x="-20" y="-20" width="380" height="140" fill="#fff"/>
+      <path d="M-20 71L352 39V42.2L-20 74.2Z" fill="#000"/>
+    </mask>
+    <mask id="epic-glyphs" maskUnits="userSpaceOnUse" x="-20" y="-20" width="380" height="140">
+      <g color="#fff"><use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/></g>
+    </mask>
+    <linearGradient id="epic-sweep-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <symbol id="epic-logo" viewBox="0 0 334 100">
+      <g mask="url(#epic-cut)"><use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/></g>
+      <use href="#g-dot" fill="#FF4D17"/>
+    </symbol>
+  </defs>
+
+  <!-- ICON SYSTEM · 24px grid · 1.5 stroke · rounded joins -->
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.1 12.1a1 1 0 0 1-1 .9H7.1a1 1 0 0 1-1-.9L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M2.5 3.5h2.8l2.4 11.5h10.6l2.2-8H6.1"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9-9.4C2 7.4 4 4.5 7.2 4.5c2 0 3.6 1.1 4.8 2.9 1.2-1.8 2.8-2.9 4.8-2.9C20 4.5 22 7.4 21 10.6 19.5 15.4 12 20 12 20Z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.2-3.6 4.3-5.5 8-5.5s6.8 1.9 8 5.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 8h17M3.5 16h11"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8.5a1.5 1.5 0 0 1 1.5-1.5h2.6l1.6-2.5h5.6L16.4 7H19a1.5 1.5 0 0 1 1.5 1.5v10A1.5 1.5 0 0 1 19 20H5a1.5 1.5 0 0 1-1.5-1.5v-10Z"/><circle cx="12" cy="13.2" r="3.6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.5V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 14.5v4a1.5 1.5 0 0 0 1.5 1.5h13a1.5 1.5 0 0 0 1.5-1.5v-4"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6.5h9M17 6.5h3M4 12h3M11 12h9M4 17.5h11M19 17.5h1"/><circle cx="15" cy="6.5" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17.5" r="2"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M7.5 4v16M4 16.5 7.5 20l3.5-3.5M16.5 20V4M13 7.5 16.5 4 20 7.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="m13.5 6 6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M20 12H5"/><path d="m10.5 6-6 6 6 6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5"/><path d="m6 10.5 6-6 6 6"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.9 12.6a1 1 0 0 0 1 .9h7.2a1 1 0 0 0 1-.9L17.5 7M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5M10.5 8v5M8 10.5h5"/></symbol>
+  <symbol id="i-call" viewBox="0 0 24 24"><path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a11 11 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4.2 19.8 5.3 16A8.5 8.5 0 1 1 8.4 19l-4.2.8Z"/><path d="M9.2 8.3c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.3.5.8 1.2 1.4 1.7.7.6 1.3.9 1.7 1 .2.1.4 0 .5-.1l.7-.8c.2-.2.3-.2.5-.1l1.5.7c.3.1.4.2.4.4 0 .5-.2 1.2-.8 1.6-.6.4-1.5.6-2.6.2a9.6 9.6 0 0 1-4.6-4C9 11 8.8 9.4 9.2 8.3Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2.5 6.5h11v10h-11zM13.5 9.5h4l3 3.5v3.5h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M12 3 20 7.2v9.6L12 21l-8-4.2V7.2L12 3Z"/><path d="m4 7.2 8 4.3 8-4.3M12 11.5V21M8 5.1l8 4.3"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="1.8"/><path d="M2.5 9.5h19M6 15h4"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4L6 21V3Z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4v-9.5Z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4.5H6a1.5 1.5 0 0 0-1.5 1.5v12A1.5 1.5 0 0 0 6 19.5h8"/><path d="M10 12h10.5M17 8.5l3.5 3.5-3.5 3.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 19.5 6v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M4.5 9.5h11a4.5 4.5 0 0 1 0 9H9"/><path d="M8 6 4.5 9.5 8 13"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3.5 15.5 15.5 3.5l5 5-12 12-5-5Z"/><path d="m7.5 11.5 2 2M10.5 8.5l2 2M13.5 5.5l2 2"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m11 3 1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8L11 3Z"/><path d="m18.5 15 .7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.3V4.5a1 1 0 0 1 1-1h7.8l8.2 8.2a1 1 0 0 1 0 1.4l-7.4 7.4a1 1 0 0 1-1.4 0l-8.2-8.2Z"/><circle cx="8" cy="8" r="1.3"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="9" cy="9.5" r="1.8"/><path d="m4 17.5 5-4.5 3.5 3 3-2.5 4.5 4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M20.5 3.5 10 14M20.5 3.5 14 20.5l-4-6.5-6.5-4 17-6.5Z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 2h-15l1.5-2Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4.5 19.5 5.3 15.7 15.6 5.4a1.9 1.9 0 0 1 2.7 0l.3.3a1.9 1.9 0 0 1 0 2.7L8.3 18.7l-3.8.8Z"/><path d="m14 7 3 3"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.7 2.4 4.5 5 4.7"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14.5 21v-8h2.7l.4-3.2h-3.1V7.9c0-.9.3-1.6 1.6-1.6h1.7V3.4a22 22 0 0 0-2.5-.1c-2.5 0-4.1 1.5-4.1 4.2v2.3H8.4V13h2.8v8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4h4.4L20 20h-4.4L4 4Z"/><path d="M19.6 4l-6.5 7.1M10.9 12.9 4.4 20"/></symbol>
+  <!-- garment line-art (categories) -->
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3.5 4 5.5 2 10l3 1.5 1.5-1V20.5h11V10.5l1.5 1 3-1.5-2-4.5-4.5-2c-.4 1.6-1.8 2.8-3.5 2.8S8.9 5.1 8.5 3.5Z"/></symbol>
+  <symbol id="i-hoodie" viewBox="0 0 24 24"><path d="M8.5 4.5c1-2 6-2 7 0l3.5 2 2.5 6-2.5 1-1-2.5v10.5h-12V11l-1 2.5-2.5-1 2.5-6 3.5-2Z"/><path d="M8.5 4.5c0 2.5 1.5 4.3 3.5 4.3s3.5-1.8 3.5-4.3M9 15.5h6l-1 2.5h-4l-1-2.5Z"/></symbol>
+  <symbol id="i-jacket" viewBox="0 0 24 24"><path d="M9 3.5 5 5.5 3 20.5h4.5V13M15 3.5l4 2 2 15h-4.5V13"/><path d="M9 3.5 12 7l3-3.5M12 7v13.5M7.5 20.5h9"/></symbol>
+  <symbol id="i-pants" viewBox="0 0 24 24"><path d="M6.5 3.5h11l1.5 17h-4.5L12 10l-2.5 10.5H5l1.5-17ZM6.5 6.5h11"/><path d="M15.5 12.5h2.5"/></symbol>
+  <symbol id="i-shorts" viewBox="0 0 24 24"><path d="M5.5 5.5h13l1.5 11-6 1.5-2-6-2 6-6-1.5 1.5-11ZM5.5 8h13"/></symbol>
+  <symbol id="i-dress" viewBox="0 0 24 24"><path d="M9 3.5h6L14 8l4.5 12.5h-13L10 8 9 3.5ZM10 8h4"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M3.5 15c0-5 3.8-8.5 8.5-8.5s8.5 3.5 8.5 8.5h-17Z"/><path d="M12 15h9c1 0 1.2 1.2.3 1.6-2.4 1-6 1.1-10.3.4M12 6.5V15"/></symbol>
+</svg>
+
+<!-- ============================================================
+     LOADER — dark → particles & streaks → E·P·I·C → glow sweep → settle
+     ============================================================ -->
+<div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading EPIC WEAR">
+  <div class="loader__beam" aria-hidden="true"></div>
+  <canvas class="loader__particles" id="loaderParticles" aria-hidden="true"></canvas>
+  <div class="loader__streaks" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="loader__corner loader__corner--tl" aria-hidden="true">EPIC/WEAR<br><span>Official Store</span></div>
+  <div class="loader__corner loader__corner--tr" aria-hidden="true">Nairobi · KE<br><span>Premium Streetwear</span></div>
+  <div class="loader__stage">
+    <svg class="loader__ring" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="ring-track" cx="100" cy="100" r="96"/>
+      <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="96" pathLength="100"/>
+      <g class="ring-spin"><circle class="ring-arc" cx="100" cy="100" r="88" pathLength="100"/></g>
+      <circle class="ring-ticks" cx="100" cy="100" r="80" pathLength="100"/>
+    </svg>
+    <svg class="epic-svg loader__logo" id="loaderLogo" viewBox="0 0 334 100" aria-hidden="true">
+      <g mask="url(#epic-cut)"><use href="#g-e" class="ll"/><use href="#g-p" class="ll"/><use href="#g-i" class="ll"/><use href="#g-c" class="ll"/></g>
+      <use href="#g-dot" class="ll ll--dot" fill="#FF4D17"/>
+      <g mask="url(#epic-glyphs)"><rect class="epic-sweep" x="-140" y="-10" width="120" height="120" fill="url(#epic-sweep-grad)"/></g>
+    </svg>
+  </div>
+  <div class="loader__meta">
+    <p class="loader__brand">EPIC WEAR</p>
+    <p class="loader__status">Loading Collection<span class="dots"><i>.</i><i>.</i><i>.</i></span> <b id="loaderPct">0</b>%</p>
+    <div class="loader__bar" aria-hidden="true"><i id="loaderBar"></i></div>
+  </div>
+</div>
+
+<!-- Ambient background (same atmosphere as the launch site) -->
+<div class="bg" aria-hidden="true">
+  <div class="bg__gradient bg__gradient--a"></div>
+  <div class="bg__gradient bg__gradient--b"></div>
+  <div class="bg__gradient bg__gradient--c"></div>
+  <div class="bg__beam bg__beam--1"></div>
+  <div class="bg__beam bg__beam--2"></div>
+  <div class="bg__fabric"></div>
+  <div class="bg__geo"><span class="geo geo--sq1"></span><span class="geo geo--sq2"></span><span class="geo geo--line1"></span><span class="geo geo--line2"></span><span class="geo geo--circle"></span></div>
+  <div class="bg__streak"></div>
+  <canvas class="bg__particles" id="bgParticles"></canvas>
+  <div class="bg__light" id="cursorLight"></div>
+  <div class="bg__grain"></div>
+  <div class="bg__vignette"></div>
+</div>
+
+<div class="cursor" aria-hidden="true">
+  <div class="cursor__ring" id="cursorRing"><span class="cursor__label">View</span></div>
+  <div class="cursor__dot" id="cursorDot"></div>
+</div>
+
+<div class="route-bar" id="routeBar" aria-hidden="true"></div>
+<a class="skip-link" href="#app">Skip to content</a>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="nav" id="nav">
+  <div class="announce" id="announce"><div class="announce__track"><span id="announceText">Free delivery across Kenya on orders over KES 10,000 · Pay securely with M-PESA</span></div></div>
+  <div class="nav__inner">
+    <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
+    <a href="/" class="nav__logo" data-cursor="logo" aria-label="EPIC WEAR — home">
+      <svg class="nav__mark" id="navMark" viewBox="0 0 334 100" aria-hidden="true"><use href="#epic-logo"/></svg>
+      <span class="nav__wear">WEAR</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/" class="ulink" data-nav="/">Home</a>
+      <a href="/shop" class="ulink" data-nav="/shop">Shop</a>
+      <a href="/collections" class="ulink" data-nav="/collections">Collections</a>
+      <a href="/new-drop" class="ulink nav__drop" data-nav="/new-drop"><span class="pulse-dot" aria-hidden="true"></span>New Drop</a>
+      <a href="/about" class="ulink" data-nav="/about">About</a>
+      <a href="/contact" class="ulink" data-nav="/contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="nav__icon" type="button" data-open-search aria-label="Search"><svg class="icon"><use href="#i-search"/></svg></button>
+      <a class="nav__icon nav__icon--account" href="/account" aria-label="Account"><svg class="icon"><use href="#i-user"/></svg></a>
+      <a class="nav__icon nav__icon--wish" href="/wishlist" aria-label="Wishlist"><svg class="icon"><use href="#i-heart"/></svg><span class="count" data-wish-count hidden>0</span></a>
+      <button class="nav__icon nav__icon--bag" type="button" data-open-cart aria-label="Open bag"><svg class="icon"><use href="#i-bag"/></svg><span class="count" data-cart-count hidden>0</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="menu" id="mobileMenu" aria-hidden="true">
+  <nav class="menu__links" aria-label="Mobile">
+    <a href="/"><span class="menu__idx">01</span>Home</a>
+    <a href="/shop"><span class="menu__idx">02</span>Shop</a>
+    <a href="/collections"><span class="menu__idx">03</span>Collections</a>
+    <a href="/new-drop"><span class="menu__idx">04</span>New Drop</a>
+    <a href="/collab"><span class="menu__idx">05</span>EPIC × Sharon</a>
+    <a href="/about"><span class="menu__idx">06</span>About</a>
+    <a href="/contact"><span class="menu__idx">07</span>Contact</a>
+  </nav>
+  <div class="menu__foot">
+    <div class="menu__quick">
+      <a href="/track"><svg class="icon"><use href="#i-truck"/></svg>Track order</a>
+      <a href="/account"><svg class="icon"><use href="#i-user"/></svg>Account</a>
+      <a href="/wishlist"><svg class="icon"><use href="#i-heart"/></svg>Wishlist</a>
+    </div>
+    <div class="menu__social" data-socials></div>
+  </div>
+</div>
+
+<main id="app" tabindex="-1"></main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="footer__line" aria-hidden="true"></div>
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="EPIC WEAR — home"><svg viewBox="0 0 334 100" aria-hidden="true"><use href="#epic-logo"/></svg><span>WEAR</span></a>
+        <p class="footer__tagline">Built for those <span class="o">who stand out.</span></p>
+        <p class="footer__about">Premium streetwear designed in Nairobi, Kenya. Delivered countrywide and worldwide.</p>
+        <a class="footer__phone" href="tel:+254742850266" data-phone-link><svg class="icon"><use href="#i-call"/></svg><span data-phone>+254 742 850 266</span></a>
+      </div>
+      <nav class="footer__col" aria-label="Shop">
+        <h3>Shop</h3>
+        <a href="/shop">All Products</a><a href="/new-drop">New Drop</a><a href="/shop?category=t-shirts">T-Shirts</a><a href="/shop?category=hoodies">Hoodies</a><a href="/shop?category=accessories">Accessories</a>
+      </nav>
+      <nav class="footer__col" aria-label="Help">
+        <h3>Help</h3>
+        <a href="/contact">Contact</a><a href="/help/shipping">Shipping</a><a href="/help/returns">Returns</a><a href="/track">Track Order</a><a href="/help/faq">FAQ</a>
+      </nav>
+      <nav class="footer__col" aria-label="Company">
+        <h3>Company</h3>
+        <a href="/about">About</a><a href="/about#story">Our Story</a><a href="/collab">Collaboration</a>
+      </nav>
+      <nav class="footer__col" aria-label="Follow">
+        <h3>Follow</h3>
+        <div class="footer__social" data-socials-list></div>
+      </nav>
+    </div>
+    <div class="footer__giant" aria-hidden="true">
+      <svg viewBox="-4 -4 342 108"><g mask="url(#epic-cut)"><use href="#g-e"/><use href="#g-p"/><use href="#g-i"/><use href="#g-c"/></g><use href="#g-dot" class="footer__giant-dot"/></svg>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 EPIC WEAR. All rights reserved.</span>
+      <span class="footer__pay"><svg class="icon"><use href="#i-lock"/></svg>Secure checkout · M-PESA</span>
+      <button class="footer__top-btn" type="button" data-to-top aria-label="Back to top"><svg class="icon"><use href="#i-arrow-up"/></svg></button>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile app-style tab bar -->
+<nav class="tabbar" aria-label="Quick navigation">
+  <a href="/" data-tab="/"><svg class="icon"><use href="#i-home"/></svg><span>Home</span></a>
+  <a href="/shop" data-tab="/shop"><svg class="icon"><use href="#i-grid"/></svg><span>Shop</span></a>
+  <button type="button" data-open-search><svg class="icon"><use href="#i-search"/></svg><span>Search</span></button>
+  <a href="/wishlist" data-tab="/wishlist"><svg class="icon"><use href="#i-heart"/></svg><span>Wishlist</span><i class="count" data-wish-count hidden>0</i></a>
+  <button type="button" data-open-cart><svg class="icon"><use href="#i-bag"/></svg><span>Bag</span><i class="count" data-cart-count hidden>0</i></button>
+</nav>
+
+<!-- Cart drawer -->
+<div class="drawer" id="cartDrawer" aria-hidden="true">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <header class="drawer__head">
+      <div>
+        <p class="eyebrow"><span>[BAG]</span> EPIC WEAR</p>
+        <h2 id="cartTitle">Your Bag <sup data-cart-count-inline>0</sup></h2>
+      </div>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Close bag"><svg class="icon"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="drawer__body" id="cartBody"></div>
+    <footer class="drawer__foot" id="cartFoot"></footer>
+  </aside>
+</div>
+
+<!-- Search overlay -->
+<div class="search" id="search" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Search EPIC WEAR">
+  <div class="search__inner">
+    <div class="search__bar">
+      <svg class="icon search__icon"><use href="#i-search"/></svg>
+      <input id="searchInput" type="search" autocomplete="off" spellcheck="false" placeholder="Search EPIC — try “black hoodie”" aria-label="Search products" enterkeyhint="search">
+      <button class="search__img" type="button" data-open-imgsearch aria-label="Search with image"><svg class="icon"><use href="#i-camera"/></svg><span>Search with image</span></button>
+      <button class="search__close" type="button" data-close-search aria-label="Close search"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="search__results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- Image search -->
+<dialog class="modal modal--imgsearch" id="imgSearch" aria-labelledby="imgSearchTitle">
+  <button class="modal__close" type="button" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+  <p class="eyebrow"><span>[AI]</span> Visual search</p>
+  <h2 id="imgSearchTitle">Search with image</h2>
+  <div class="imgsearch" id="imgSearchBody"></div>
+</dialog>
+
+<!-- Generic dialog (size guide, lightbox…) -->
+<dialog class="modal" id="dialog" aria-label="Dialog"></dialog>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<noscript><p class="noscript">EPIC WEAR works best with JavaScript enabled. Call or WhatsApp +254 742 850 266 to order.</p></noscript>
+<script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>

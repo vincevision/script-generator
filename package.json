@@ -1,0 +1,24 @@
+{
+  "name": "epic-wear-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EPIC WEAR — official online store. Premium Kenyan streetwear with M-PESA checkout, accounts, order tracking and an admin CMS.",
+  "type": "module",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/index.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch-path=server server/index.js",
+    "create-admin": "node --disable-warning=ExperimentalWarning server/scripts/create-admin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincevision/script-generator.git"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.22.3"
+  }
+}
